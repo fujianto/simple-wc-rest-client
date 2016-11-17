@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: Simple Woocommerce Rest Client
- * Plugin URI: https://septianfujianto.com/
+ * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Septian Ahmad Fujianto
- * Author URI: https://septianfujianto.com
+ * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
  * Github Branch: master
  * Requires at least: 4.4
- * Tested up to: 4.6
+ * Tested up to: 4.6.1
  *
  * Text Domain: swr-client
  * 
@@ -68,9 +68,9 @@ class SimpleWcRestClient
 		$base_url        = $request_data['base_url'];
 		$consumer_key    = $request_data['consumer_key'];
 		$consumer_secret = $request_data['consumer_secret'];
-		$options         = (array) json_decode($request_data['options']);
+		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'];
-		$data            = (array) json_decode($request_data['data']);
+		$data            = $request_data['data'];
 		$results;
 
 		try{
@@ -90,9 +90,9 @@ class SimpleWcRestClient
 		$base_url        = $request_data['base_url'];
 		$consumer_key    = $request_data['consumer_key'];
 		$consumer_secret = $request_data['consumer_secret'];
-		$options         = (array) json_decode($request_data['options']);
+		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$data            = (array) json_decode($request_data['data']);
+		$data            = $request_data['data'];
 		$results;
 
 		try{
@@ -113,9 +113,9 @@ class SimpleWcRestClient
 		$base_url        = $request_data['base_url'];
 		$consumer_key    = $request_data['consumer_key'];
 		$consumer_secret = $request_data['consumer_secret'];
-		$options         = (array) json_decode($request_data['options']);
+		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$parameters      = (array) json_decode($request_data['parameters']);
+		$parameters      = $request_data['parameters'];
 		$results;
 
 		try{
@@ -135,9 +135,9 @@ class SimpleWcRestClient
 		$base_url        = $request_data['base_url'];
 		$consumer_key    = $request_data['consumer_key'];
 		$consumer_secret = $request_data['consumer_secret'];
-		$options         = (array) json_decode($request_data['options']);
+		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'];
-		$parameters      = (array) json_decode($request_data['parameters']);
+		$parameters      = $request_data['parameters'];
 		$results;
 
 		try{

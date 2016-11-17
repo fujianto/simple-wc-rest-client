@@ -26,9 +26,9 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). In JSON String. e.g: {"wp_api": true, "version" : "wc/v1"} 					 |
+| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `parameters`      | `string` | no       | Only for GET and DELETE, request query string. In JSON String. e.g: {"page": 5, "per_page" : 2}                |
+| `parameters`      | `array` | no        | Only for GET and DELETE. e.g: ["page" => 1, "per_page" => 5]               |
                                            
 
 ### For POST request to create new item:
@@ -39,9 +39,9 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). In JSON String. e.g: {"wp_api": true, "version" : "wc/v1"} 					 |
+| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ]					 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `data`            | `string`  | yes      | Only for POST and PUT,  In JSON String. e.g: { "name": "Ultra Premium Quality",   "type": "simple",   "regular_price": "2199"}   |
+| `data`            | `array`  | yes      | Only for POST and PUT, e.g: ["name" => "Product A", "regular_price" => 2500]  |
                                            
 
 ### For PUT request to update item by id:
@@ -52,9 +52,9 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). In JSON String. e.g: {"wp_api": true, "version" : "wc/v1"} 					 |
+| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `data`            | `string`  | yes      | Only for POST and PUT,  In JSON String. e.g: { "regular_price": "2199"}   |
+| `data`            | `array`  | yes      | Only for POST and PUT   									 |
                                            
 
 ### For DELETE request to delete item by id:
@@ -65,9 +65,9 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). In JSON String. e.g: {"wp_api": true, "version" : "wc/v1"} 					 |
+| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `parameters`      | `string` | no       | Only for GET and DELETE, request query string. In JSON String. e.g: {"force":  false}               |
+| `parameters`      | `array`  | no       | Only for GET and DELETE, e.g: ["force" => true]								         |
                                            
 
 ## Credits
