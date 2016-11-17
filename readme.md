@@ -30,6 +30,39 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
 | `parameters`      | `array` | no        | Only for GET and DELETE. e.g: ["page" => 1, "per_page" => 5]               |
                                            
+#### Example in Java Android:
+
+```java
+String url = "http://sitename.com/wp-json/swrc/v1/get";
+OkHttpClient client = new OkHttpClient();
+RequestBody formBody = new FormBody.Builder()
+        .add("base_url", "http://sitename.com")
+        .add("consumer_key", "ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .add("consumer_secret", "cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .add("options[wp_api]", "true")
+        .add("options[version]", "wc/v1")
+        .add("endpoint", "products")
+        .add("parameters[page]", "1")
+        .add("parameters[per_page]", "4")
+        .build();
+
+Request request = new Request.Builder()
+        .url(url)
+        .post(formBody)
+        .build();
+
+client.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+        e.printStackTrace();
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        System.out.println("Response: "+response.body().string());
+    }
+});
+```
 
 ### For POST request to create new item:
 [POST] http://sitename.com/wp-json/swrc/v1/post
@@ -42,7 +75,43 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ]					 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
 | `data`            | `array`  | yes      | Only for POST and PUT, e.g: ["name" => "Product A", "regular_price" => 2500]  |
-                                           
+ 
+ #### Example in Java Android:
+
+ ```java
+String url = "http://sitename.com/wp-json/swrc/v1/post";
+OkHttpClient client = new OkHttpClient();
+RequestBody formBody = new FormBody.Builder()
+        .add("base_url", "http://sitename.com")
+        .add("consumer_key", "ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .add("consumer_secret", "cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        .add("options[wp_api]", "true")
+        .add("options[version]", "wc/v1")
+        .add("endpoint", "products")
+        .add("data[name]", "Ultra T-Shirt")
+        .add("data[regular_price]", "125000")
+        .add("data[type]", "simple")
+        .add("data[description]", "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.")
+        .build();
+
+Request request = new Request.Builder()
+        .url(url)
+        .post(formBody)
+        .build();
+
+client.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+        e.printStackTrace();
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        System.out.println("RESPONSE CODE: "+response.code());
+        System.out.println("RESPONSE: "+response.body().string());
+    }
+});
+```                                          
 
 ### For PUT request to update item by id:
 [POST] http://sitename.com/wp-json/swrc/v1/put/{id}
@@ -56,6 +125,40 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
 | `data`            | `array`  | yes      | Only for POST and PUT   									 |
                                            
+#### Example in Java
+
+```java
+        String url = "http://sitename.com/wp-json/swrc/v1/put/44";
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("base_url", "http://sitename.com")
+                .add("consumer_key", "ck_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+                .add("consumer_secret", "cs_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+                .add("options[wp_api]", "true")
+                .add("options[version]", "wc/v1")
+                .add("endpoint", "products")
+                .add("data[regular_price]", "55000")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("RESPONSE CODE: "+response.code());
+                System.out.println("RESPONSE: "+response.body().string());
+            }
+        });
+    }
+```
 
 ### For DELETE request to delete item by id:
 [POST] http://sitename.com/wp-json/swrc/v1/delete/{id}
@@ -68,7 +171,38 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
 | `parameters`      | `array`  | no       | Only for GET and DELETE, e.g: ["force" => true]								         |
-                                           
+ #### Example in Java Android
+ ```java
+        String url = "http://sitename.com/wp-json/swrc/v1/delete/103";
+        OkHttpClient client = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("base_url", "http://sitename.com")
+                .add("consumer_key", "ck_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+                .add("consumer_secret", "cs_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+                .add("options[wp_api]", "true")
+                .add("options[version]", "wc/v1")
+                .add("endpoint", "products")
+                .add("parameters[force]", "true")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("RESPONSE CODE: "+response.code());
+                System.out.println("RESPONSE: "+response.body().string());
+            }
+        });
+ ```                                          
 
 ## Credits
 * WooCommerce API - PHP Client 1.1.3 by Automattic licensed under MIT

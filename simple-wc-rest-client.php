@@ -3,7 +3,7 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
@@ -35,7 +35,7 @@ use Automattic\WooCommerce\Client;
 class SimpleWcRestClient 
 {
 	public $version     = '1';
-	public $namespace;
+	public $namespace_api;
 	public $base_get    = 'get';
 	public $base_post   = 'post';
 	public $base_put    = 'put';
@@ -43,7 +43,7 @@ class SimpleWcRestClient
 
 	function __construct(){ 
 		$this->init_hook();
-		$this->namespace = 'swrc/v' . $this->version;
+		$this->namespace_api = 'swrc/v' . $this->version;
 	}
 
 	/* Function to accept WooCommerce Client settings */
@@ -156,28 +156,28 @@ class SimpleWcRestClient
 
 	/* Register Custom REST Routes */
 	public function register_routes() {
-		register_rest_route( $this->namespace, $this->base_delete.'/(?P<id>\d+)', 
+		register_rest_route( $this->namespace_api, $this->base_delete.'/(?P<id>\d+)', 
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'delete_swrc_api' ),
 			)
 		);
 
-		register_rest_route( $this->namespace, $this->base_put.'/(?P<id>\d+)', 
+		register_rest_route( $this->namespace_api, $this->base_put.'/(?P<id>\d+)', 
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'put_swrc_api' ),
 			)
 		);
 
-		register_rest_route( $this->namespace, $this->base_get, 
+		register_rest_route( $this->namespace_api, $this->base_get, 
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'get_swrc_api' ),
 			)
 		);
 
-		register_rest_route( $this->namespace, $this->base_post, 
+		register_rest_route( $this->namespace_api, $this->base_post, 
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'post_swrc_api' ),
