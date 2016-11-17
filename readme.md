@@ -33,6 +33,7 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 
 ### For POST request to create new item:
 [POST] http://sitename.com/wp-json/swrc/v1/post
+
 |       Option      |   Type   | Required |                Description                 					 |
 | ----------------- | -------- | -------- | -------------------------------------------------------------|
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
@@ -45,6 +46,7 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 
 ### For PUT request to update item by id:
 [POST] http://sitename.com/wp-json/swrc/v1/put/{id}
+
 |       Option      |   Type   | Required |                Description                 					 |
 | ----------------- | -------- | -------- | -------------------------------------------------------------|
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
@@ -57,6 +59,7 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 
 ### For DELETE request to delete item by id:
 [POST] http://sitename.com/wp-json/swrc/v1/delete/{id}
+
 |       Option      |   Type   | Required |                Description                 					 |
 | ----------------- | -------- | -------- | -------------------------------------------------------------|
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
