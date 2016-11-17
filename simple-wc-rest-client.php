@@ -6,6 +6,8 @@
  * Version: 0.1.0
  * Author: Septian Ahmad Fujianto
  * Author URI: https://septianfujianto.com
+ * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
+ * Github Branch: master
  * Requires at least: 4.4
  * Tested up to: 4.6
  *
