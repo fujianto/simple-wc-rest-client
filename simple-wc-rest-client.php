@@ -3,7 +3,7 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
@@ -51,13 +51,13 @@ class SimpleWcRestClient
 		if($base_url !== "" || $consumer_key !== "" || $consumer_secret != "") {
 			$client_options = $options;
 
-			if($options == "") {
+			if($options == "" || $options == nul) {
 				$client_options = [
 					'wp_api' => true,
 					'version' => 'wc/v1',
 				];
 			}
-
+			
 			$woocommerce = new Client($base_url, $consumer_key, $consumer_secret, $client_options);
 			return $woocommerce;
 		}
@@ -70,7 +70,7 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'];
-		$data            = $request_data['data'];
+		$data            = ($request_data['data'] === "" || $request_data['data'] === null) ? [""] : $request_data['data'];
 		$results;
 
 		try{
@@ -92,7 +92,7 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$data            = $request_data['data'];
+		$data            = ($request_data['data'] === "" || $request_data['data'] === null) ? [""] : $request_data['data'];
 		$results;
 
 		try{
@@ -115,7 +115,7 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$parameters      = $request_data['parameters'];
+		$parameters      = ($request_data['parameters'] === "" || $request_data['parameters'] === null) ? [""] : $request_data['parameters'];
 		$results;
 
 		try{
@@ -137,8 +137,10 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'];
-		$parameters      = $request_data['parameters'];
+		$parameters      = ($request_data['parameters'] === "" || $request_data['parameters'] === null) ? [""] : $request_data['parameters'];
 		$results;
+
+		$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
 
 		try{
 			$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
