@@ -3,13 +3,13 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.1.3
+ * Version: 0.1.4
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
  * Github Branch: master
  * Requires at least: 4.4
- * Tested up to: 4.6.1
+ * Tested up to: 4.7
  *
  * Text Domain: swr-client
  * 
