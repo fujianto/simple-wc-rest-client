@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63f7eae19526f9ad660c122f1e9d7ce3",
-    "content-hash": "31b8c7edd5b4c3761ea60d57d8498c7a",
+    "content-hash": "24553f6810f5aa11b5b76f5b561bb733",
     "packages": [
         {
             "name": "automattic/woocommerce",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/wc-api-php.git",
-                "reference": "59e636589fcbfd0882369f7fc4ea5edbec986693"
+                "reference": "58d8c082327e9f08526334a4868ec3cd66b6a344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/wc-api-php/zipball/59e636589fcbfd0882369f7fc4ea5edbec986693",
-                "reference": "59e636589fcbfd0882369f7fc4ea5edbec986693",
+                "url": "https://api.github.com/repos/woocommerce/wc-api-php/zipball/58d8c082327e9f08526334a4868ec3cd66b6a344",
+                "reference": "58d8c082327e9f08526334a4868ec3cd66b6a344",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +51,7 @@
                 "api",
                 "woocommerce"
             ],
-            "time": "2016-12-14 19:12:47"
+            "time": "2017-03-15T20:14:55+00:00"
         }
     ],
     "packages-dev": [],

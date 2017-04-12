@@ -1,17 +1,17 @@
 [
     {
         "name": "automattic/woocommerce",
-        "version": "1.1.4",
-        "version_normalized": "1.1.4.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/woocommerce/wc-api-php.git",
-            "reference": "59e636589fcbfd0882369f7fc4ea5edbec986693"
+            "reference": "58d8c082327e9f08526334a4868ec3cd66b6a344"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/woocommerce/wc-api-php/zipball/59e636589fcbfd0882369f7fc4ea5edbec986693",
-            "reference": "59e636589fcbfd0882369f7fc4ea5edbec986693",
+            "url": "https://api.github.com/repos/woocommerce/wc-api-php/zipball/58d8c082327e9f08526334a4868ec3cd66b6a344",
+            "reference": "58d8c082327e9f08526334a4868ec3cd66b6a344",
             "shasum": ""
         },
         "require": {
@@ -22,7 +22,7 @@
         "require-dev": {
             "phpunit/phpunit": "*"
         },
-        "time": "2016-12-14 19:12:47",
+        "time": "2017-03-15T20:14:55+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

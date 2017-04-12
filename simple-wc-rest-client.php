@@ -3,17 +3,16 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.1.5
+ * Version: 0.2
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
  * Github Branch: master
  * Requires at least: 4.4
- * Tested up to: 4.7
+ * Tested up to: 4.7.3
  *
  * Text Domain: swr-client
  * 
- * @todo: Validate String to find if it's valid JSON or Not to prevent error when inputing data and params
  */
 
 // Exit if accessed directly.
@@ -47,8 +46,18 @@ class SimpleWcRestClient
 	}
 
 	/* Function to accept WooCommerce Client settings */
-	public function swrc_client( $base_url, $consumer_key, $consumer_secret, $options) {
-		if($base_url !== "" || $consumer_key !== "" || $consumer_secret != "") {
+	public function swrc_client( $base_url, $consumer_key, $consumer_secret, $options, $endpoint) {
+		$results;
+
+		if ($base_url === "" || $base_url === null) {
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing base url parameter"] ], 405);
+		} else if ($consumer_key === "" || $consumer_key === null) {
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing Consumer key parameter"] ], 405);
+		} else if ($consumer_secret === "" || $consumer_secret === null) {
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing Consumer secret parameter"] ], 405);
+		} else if ($endpoint === null || $endpoint === "") {
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing endpoint parameter"] ], 405);
+		} else {
 			$client_options = $options;
 
 			if ($options == "" || $options == null) {
@@ -56,10 +65,13 @@ class SimpleWcRestClient
 					'wp_api' => true,
 					'version' => 'wc/v1',
 				];
+			} else {
+				$client_options = (array) json_decode($options);
 			}
-			
-			$woocommerce = new Client($base_url, $consumer_key, $consumer_secret, $client_options);
-			return $woocommerce;
+
+			$results = new Client($base_url, $consumer_key, $consumer_secret, $client_options);
+
+			return $results;
 		}
 	}
 
@@ -70,16 +82,20 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'];
-		$data            = ($request_data['data'] === "" || $request_data['data'] == null) ? [""] : $request_data['data'];
+		$data 			 = ($request_data['data'] === null || json_decode($request_data['data']) == null) ? [] : (array) json_decode($request_data['data']);
 		$results;
 
 		try{
-			$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
-			$results     = $woocommerce->post($endpoint, $data);
-			$response    = new WP_REST_Response($results, 200);
+			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $options, $endpoint);
+
+			if ($woocommerce !== null) {
+				$response    = new WP_REST_Response($woocommerce->post($endpoint, $data), 200);
+			} else {
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 408);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
 		}
 
 		return $response;
@@ -92,17 +108,20 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$data            = ($request_data['data'] === "" || $request_data['data'] == null) ? [""] : $request_data['data'];
+		$data 			 = ($request_data['data'] === null || json_decode($request_data['data']) == null) ? [] : (array) json_decode($request_data['data']);
 		$results;
 
 		try{
-			$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
-			$results     = $woocommerce->put($endpoint, $data);
-
-			$response    = new WP_REST_Response($results, 200);
+			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $options, $endpoint);
+			
+			if ($woocommerce !== null) {
+				$response    = new WP_REST_Response($woocommerce->put($endpoint, $data), 200);
+			} else {
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 408);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
 		}
 
 		return $response;
@@ -115,16 +134,20 @@ class SimpleWcRestClient
 		$consumer_secret = $request_data['consumer_secret'];
 		$options         = $request_data['options'];
 		$endpoint        = $request_data['endpoint'].'/'.$request_data['id'];
-		$parameters      = ($request_data['parameters'] === "" || $request_data['parameters'] == null) ? [""] : $request_data['parameters'];
+		$parameters = ($request_data['parameters'] === null || json_decode($request_data['parameters']) == null) ? ['force' => true] : (array) json_decode($request_data['parameters']);
 		$results;
 
 		try{
-			$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
-			$results     = $woocommerce->delete($endpoint, $parameters);
-			$response    = new WP_REST_Response($results, 200);
+			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $options, $endpoint);
+
+			if ($woocommerce !== null) {
+				$response    = new WP_REST_Response($woocommerce->delete($endpoint, $parameters), 200);
+			} else {
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 408);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
 		}
 
 		return $response;
@@ -135,22 +158,24 @@ class SimpleWcRestClient
 		$base_url        = $request_data['base_url'];
 		$consumer_key    = $request_data['consumer_key'];
 		$consumer_secret = $request_data['consumer_secret'];
-		$options         = ($request_data['options'] === "" || $request_data['options'] == null || !json_decode($request_data['options'])) ? "" : (array) json_decode($request_data['options']);
 		$endpoint        = $request_data['endpoint'];
-		$parameters      = ($request_data['parameters'] === "" || $request_data['parameters'] == null || json_decode($request_data['parameters']) == null) ? "" : (array) json_decode($request_data['parameters']);
+		$options = $request_data['options'];
+		$parameters = ($request_data['parameters'] === null || json_decode($request_data['parameters']) == null) ? [] : (array) json_decode($request_data['parameters']);
 		$results;
 
-		$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
-
 		try{
-			$woocommerce = $this->swrc_client( $base_url, $consumer_key, $consumer_secret, $options);
-			$results     = $woocommerce->get($endpoint, $parameters);
+			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $options, $endpoint);
 
-			$response    = new WP_REST_Response($results, 200);
+			if ($woocommerce !== null) {
+				$results    = new WP_REST_Response($woocommerce->get($endpoint, $parameters), 200);
+			} else {
+				$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+			}
+			
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
 
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 408);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
 		}
 
 		return $results;

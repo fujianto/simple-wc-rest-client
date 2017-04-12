@@ -2,7 +2,7 @@
 
 namespace Automattic\WooCommerce\Tests;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use \PHPUnit\Framework\TestCase as TestCase;
 
 class OptionsTest extends TestCase
 {
@@ -42,5 +42,10 @@ class OptionsTest extends TestCase
     public function testDefaultValueOfIsApiPrefix()
     {
         $this->assertEquals('/wp-json/', $this->options->apiPrefix());
+    }
+
+    public function testDefaultValueOfUserAgent()
+    {
+        $this->assertEquals('WooCommerce API Client-PHP', $this->options->userAgent());
     }
 }

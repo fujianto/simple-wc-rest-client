@@ -1,6 +1,6 @@
 # WooCommerce API - PHP Client
 
-A PHP wrapper for the WooCommerce REST API. Easily interact with the WooCommerce REST API using this library.
+A PHP wrapper for the WooCommerce REST API. Easily interact with the WooCommerce REST API securely using this library. If using a HTTPS connection this library uses BasicAuth, else it uses Oauth to provide a secure connection to WooCommerce.
 
 [![build status](https://secure.travis-ci.org/woocommerce/wc-api-php.svg)](http://travis-ci.org/woocommerce/wc-api-php)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/woocommerce/wc-api-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/woocommerce/wc-api-php/?branch=master)
@@ -20,23 +20,6 @@ Generate API credentials (Consumer Key & Consumer Secret) following this instruc
 Check out the WooCommerce API endpoints and data that can be manipulated in <https://woocommerce.github.io/woocommerce-rest-api-docs/>.
 
 ## Setup
-
-Setup for the old WooCommerce API v3:
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-use Automattic\WooCommerce\Client;
-
-$woocommerce = new Client(
-    'http://example.com', 
-    'ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 
-    'cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    [
-        'version' => 'v3',
-    ]
-);
-```
 
 Setup for the new WP REST API integration (WooCommerce 2.6 or later):
 
@@ -76,6 +59,7 @@ $woocommerce = new Client(
 | `verify_ssl`        | `bool`   | no       | Verify SSL when connect, use this option as `false` when need to test with self-signed certificates, default is `true` |
 | `query_string_auth` | `bool`   | no       | Force Basic Authentication as query string when `true` and using under HTTPS, default is `false`                       |
 | `oauth_timestamp`   | `string` | no       | Custom oAuth timestamp, default is `time()`                                                                            |
+| `user_agent`        | `string` | no       | Custom user-agent, default is `WooCommerce API Client-PHP`                                                             |
 
 ## Methods
 
@@ -151,6 +135,7 @@ try {
 
 ## Release History
 
+- 2017-03-15 - 1.2.0 - Added `user_agent` option.
 - 2016-12-14 - 1.1.4 - Fixed WordPress 4.7 compatibility.
 - 2016-10-26 - 1.1.3 - Allow set `oauth_timestamp` and improved how is handled the response headers.
 - 2016-09-30 - 1.1.2 - Added `wp_api_prefix` option to allow custom WP REST API URL prefix.

@@ -1,5 +1,5 @@
 {
     "require": {
-        "automattic/woocommerce": "1.1.*"
+        "automattic/woocommerce": "1.2.*"
     }
 }

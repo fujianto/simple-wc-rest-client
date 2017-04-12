@@ -26,9 +26,9 @@ Make sure you have valid Consumer Key and Consumer Secret for the target Woocomm
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `string`  | no       | Extra arguments (see client options table) in json String. e.g: {"wp_api" : true, "version" : "wc/v1"} 			 |
+| `options`         | `json`  | no       | Extra arguments (see client options table). e.g: {"wp_api":  true, "version": "wc/v1"}] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `parameters`      | `string` | no        | Only for GET and DELETE in json string. e.g: { "per_page" : 5, "page" : 1}               |
+| `parameters`      | `json` | no        | Only for GET and DELETE. e.g: {"page": 1, "per_page": 5}                |
                                            
 #### Example in Java Android:
 
@@ -39,9 +39,11 @@ RequestBody formBody = new FormBody.Builder()
         .add("base_url", "http://sitename.com")
         .add("consumer_key", "ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         .add("consumer_secret", "cs_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        .add("options", '{"wp_api" : true, "version" : "wc/v1"}')
+        .add("options[wp_api]", "true")
+        .add("options[version]", "wc/v1")
         .add("endpoint", "products")
-        .add("parameters", '{ "per_page" : 5, "page" : 1} ')
+        .add("parameters[page]", "1")
+        .add("parameters[per_page]", "4")
         .build();
 
 Request request = new Request.Builder()
@@ -70,9 +72,9 @@ client.newCall(request).enqueue(new Callback() {
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ]					 |
+| `options`         | `json`  | no       | Extra arguments (see client options table). e.g: {"wp_api":  true, "version": "wc/v1"}]					 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `data`            | `array`  | yes      | Only for POST and PUT, e.g: ["name" => "Product A", "regular_price" => 2500]  |
+| `data`            | `json`  | yes      | Only for POST and PUT, e.g: {"name" : "Product A", "regular_price" : 2500}  |
  
  #### Example in Java Android:
 
@@ -119,9 +121,9 @@ client.newCall(request).enqueue(new Callback() {
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
+| `options`         | `json`  | no       | Extra arguments (see client options table). e.g: {"wp_api":  true, "version": "wc/v1"}] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `data`            | `array`  | yes      | Only for POST and PUT   									 |
+| `data`            | `array`  | yes      | Only for POST and PUT. e.g: {"regular_price" : "2500"}   									 |
                                            
 #### Example in Java
 
@@ -166,9 +168,9 @@ client.newCall(request).enqueue(new Callback() {
 | `base_url`        | `string` | yes      | Your Store URL, example: http://woo.dev/   			 		 |
 | `consumer_key`    | `string` | yes      | Your API consumer key                      					 |
 | `consumer_secret` | `string` | yes      | Your API consumer secret                   					 |
-| `options`         | `array`  | no       | Extra arguments (see client options table). e.g: [ 'wp_api' => true, 'version' => 'wc/v1' ] 				 |
+| `options`         | `json`  | no       | Extra arguments (see client options table). e.g: {"wp_api":  true, "version": "wc/v1"}] 				 |
 | `endpoint`        | `string` | yes      | WooCommerce API endpoint, example: `customers` or `order/12` |
-| `parameters`      | `array`  | no       | Only for GET and DELETE, e.g: ["force" => true]								         |
+| `parameters`      | `json`  | no       | Only for GET and DELETE, e.g: {"force" : true}								         |
  #### Example in Java Android
  ```java
         String url = "http://sitename.com/wp-json/swrc/v1/delete/103";
