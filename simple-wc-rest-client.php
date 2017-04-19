@@ -3,7 +3,7 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.2.1
+ * Version: 0.2.2
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
@@ -51,13 +51,13 @@ class SimpleWcRestClient
 		$results;
 
 		if ($base_url === "" || $base_url === null) {
-			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing base url parameter"] ], 405);
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_client_fail", "message" => "Missing base url parameter"] ], 405);
 		} else if ($consumer_key === "" || $consumer_key === null) {
-			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing Consumer key parameter"] ], 405);
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_client_fail", "message" => "Missing Consumer key parameter"] ], 405);
 		} else if ($consumer_secret === "" || $consumer_secret === null) {
-			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing Consumer secret parameter"] ], 405);
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_client_fail", "message" => "Missing Consumer secret parameter"] ], 405);
 		} else if ($endpoint === null || $endpoint === "") {
-			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing endpoint parameter"] ], 405);
+			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_client_fail", "message" => "Missing endpoint parameter"] ], 405);
 		} else {
 			$client_options = $options;
 
@@ -96,11 +96,11 @@ class SimpleWcRestClient
 			if ($woocommerce !== null) {
 				$response    = new WP_REST_Response($woocommerce->post($endpoint, $data), 200);
 			} else {
-				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_post_fail", "message" => "Missing parameters"] ], 405);
 			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_post_fail", "message" => "Exception: ".$results] ], 405);
 		}
 
 		return $response;
@@ -122,11 +122,11 @@ class SimpleWcRestClient
 			if ($woocommerce !== null) {
 				$response    = new WP_REST_Response($woocommerce->put($endpoint, $data), 200);
 			} else {
-				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_put_fail", "message" => "Missing parameters"] ], 405);
 			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_put_fail", "message" => "Exception: ".$results] ], 405);
 		}
 
 		return $response;
@@ -148,11 +148,11 @@ class SimpleWcRestClient
 			if ($woocommerce !== null) {
 				$response    = new WP_REST_Response($woocommerce->delete($endpoint, $parameters), 200);
 			} else {
-				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Missing parameters"] ], 405);
+				$response    = new WP_REST_Response(["errors" => ["code" => "swrc_delete_fail", "message" => "Missing parameters"] ], 405);
 			}
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_delete_fail", "message" => "Exception: ".$results] ], 405);
 		}
 
 		return $response;
@@ -180,7 +180,7 @@ class SimpleWcRestClient
 		} catch (Exception $e) {
 			$results     = $e->getMessage();
 
-			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => $results] ], 405);
+			$response    = new WP_REST_Response(["errors" => ["code" => "swrc_get_fail", "message" => "Exception: ".$results] ], 405);
 		}
 
 		return $results;
