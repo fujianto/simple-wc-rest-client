@@ -3,7 +3,7 @@
  * Plugin Name: Simple Woocommerce Rest Client
  * Plugin URI: http://septianfujianto.com/
  * Description: A Woocommerce client to make accessing Woocommerce Rest API simpler. Web App and Mobile App will be able to access Woocommerce API without having to do complicated OAuth signing. Require valid Consumer key and secret from Woocommerce.
- * Version: 0.2.2
+ * Version: 0.2.3
  * Author: Septian Ahmad Fujianto
  * Author URI: http://septianfujianto.com
  * GitHub Plugin URI: https://github.com/fujianto/simple-wc-rest-client
@@ -39,7 +39,6 @@ class SimpleWcRestClient
 	public $base_post   = 'post';
 	public $base_put    = 'put';
 	public $base_delete = 'delete';
-	public $default_options = [ 'wp_api' => true, 'version' => 'wc/v1', 'query_string_auth' => true ];
 
 	function __construct(){ 
 		$this->init_hook();
@@ -60,11 +59,10 @@ class SimpleWcRestClient
 			$results    = new WP_REST_Response(["errors" => ["code" => "swrc_client_fail", "message" => "Missing endpoint parameter"] ], 405);
 		} else {
 			$client_options = $options;
-
 			if ($options == "" || $options == null) {
 				$client_options = [
 					'wp_api' => true,
-					'version' => 'wc/v1',
+					'version' => 'wc/v2',
 				];
 			} else {
 				if (is_array($options)) {
@@ -169,7 +167,7 @@ class SimpleWcRestClient
 		$results;
 
 		try{
-			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $this->default_options, $endpoint);
+			$woocommerce = $this->swrc_client($base_url, $consumer_key, $consumer_secret, $options, $endpoint);
 
 			if ($woocommerce !== null) {
 				$results    = new WP_REST_Response($woocommerce->get($endpoint, $parameters), 200);
